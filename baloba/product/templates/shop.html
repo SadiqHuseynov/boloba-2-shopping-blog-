@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}
+Shop || Boloba
+{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+	<!-- shop page area start -->
+	<div class="shop-product-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 order-2 order-lg-1">
+					<!-- Left Sidebar-->
+					<div class="left-sidebar">
+						<div class="left-sidebar-title">
+							<ul class="page-menu">
+								<li>
+									<a href="index.html">Home</a>
+								</li>
+								<li>
+									<a class="active" href="#">Cameras</a>
+								</li>
+							</ul>
+						</div>
+						<div class="left-layout">
+							<!-- start Price Filter Area -->
+							<div class="price-filter-area single-layout">
+								<div class="price-filter">
+									<div class="layout-title">
+										<h4>Price</h4>
+									</div>
+									<p>
+										<input type="text" id="amount" readonly
+											style="border:0; color:#F3652A; font-weight:bold;">
+									</p>
+									<div id="slider-range"></div>
+								</div>
+							</div>
+							<!-- End Price Filter Area -->
+							<div class="single-layout">
+								<div class="layout-title">
+									<h4>Category</h4>
+								</div>
+								<div class="layout-list">
+									<ul>
+										<li><a href="#">Fashion & Beauty 1 (14)</a></li>
+										<li><a href="#">Fashion & Beauty 2 (14)</a></li>
+										<li><a href="#">Fashion & Beauty 3 (15)</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="single-layout">
+								<div class="layout-title">
+									<h4>color</h4>
+								</div>
+								<div class="layout-list">
+									<ul>
+										<li><a href="#">Black (15)</a></li>
+										<li><a href="#">Blue (15)</a></li>
+										<li><a href="#">Brown (12)</a></li>
+										<li><a href="#">Pink (12)</a></li>
+										<li><a href="#">Red (11)</a></li>
+										<li><a href="#">White (15)</a></li>
+										<li><a href="#">Yellow (12)</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="single-layout">
+								<div class="layout-title">
+									<h4>Manufacturer</h4>
+								</div>
+								<div class="layout-list">
+									<ul>
+										<li><a href="#">Adidas (15)</a></li>
+										<li><a href="#">Chanel (16)</a></li>
+										<li><a href="#">Dolce (16)</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 order-1 order-lg-2 pt-4 pt-md-0">
+					<div class="shop-page-banner">
+						<img src="{% static 'assets/img/banner/shop-page-banner.png' %}" alt="" />
+					</div>
+					<div class="shop-product-view">
+						<!-- Shop Product Tab Area -->
+						<div class="shop-tab-area">
+							<!-- Tab Bar -->
+							<div class="tab-bar">
+								<div class="tab-bar-left">
+									<div class="tab-bar-inner">
+										<ul class="nav nav-tabs" role="tablist">
+											<li><a class="active" href="#shop-grid" data-bs-toggle="tab"><i class="fa fa-th"></i></a>
+											</li>
+											<li><a href="#shop-list" data-bs-toggle="tab"><i
+														class="fa fa-th-list"></i></a></li>
+										</ul>
+									</div>
+									{% comment %} <div class="sorter d-none d-lg-inline-block">
+										<div class="sort-by">
+											<label>Sort By:</label>
+											<select>
+												<option value="position">Default</option>
+												<option value="name">Name (A - Z)</option>
+												<option value="price">Name (Z - A)</option>
+												<option value="price">Price (Low > High)</option>
+												<option value="price">Price (High > Low)</option>
+												<option value="price">Rating (Highest)</option>
+												<option value="price">Rating (Lowest)</option>
+												<option value="price">Model (A - Z)</option>
+												<option value="price">Model (Z - A)</option>
+											</select>
+										</div>
+									</div>
+
+								</div>
+								<div class="toolbar">
+									<div class="pager-list">
+										<div class="limiter">
+											<label>Show</label>
+											<select>
+												<option value="9">9</option>
+												<option value="25">25</option>
+												<option value="50">50</option>
+												<option value="75">75</option>
+												<option value="100">100</option>
+											</select>
+										</div>
+									</div> {% endcomment %}
+									<div class="pages">
+										<ol>
+											{% if all_products.number > 1 %}
+												<li><a href="?page=1">|<</a></li>
+											{% endif %}
+										
+											<li class="current">{{ all_products.number }}</li>
+										
+											{% if all_products.has_next %}
+												<li><a href="?page={{ all_products.next_page_number }}"> {{ all_products.next_page_number }}</a></li>
+												<li><a href="?page={{ all_products.paginator.num_pages }}">>|</a></li>
+											{% endif %}
+										</ol>
+										
+										
+										{% comment %} <ol>
+											<li class="current">1</li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">></a></li>
+											<li><a href="#">>|</a></li>
+										</ol> {% endcomment %}
+									</div>
+								</div>
+							</div>
+							<!-- End Tab Bar -->
+							<!-- Tab Content -->
+							<div class="tab-content">
+								<div id="shop-grid" class="tab-pane active" role="tabpanel">
+									<div class="row">
+										<!-- single-product start -->
+										{% for all_product in all_products %}
+										<div class="col-lg-4 col-md-6 shop-single-item">
+											<div class="product-single">
+												<div class="product-img">
+													<a href="{% url 'single_product' pk=all_product.pk %}">
+														<img class="primary-img" src="{{ all_product.product_image.url }}"
+															alt="" />
+													</a>
+												</div>
+												<div class="product-content">
+													<h2><a href="{% url 'single_product' pk=all_product.pk %}">{{ all_product.name }}</a></h2>
+													<div class="pro-price">
+														<span class="new-price">{{ all_product.value }} ₼</span>
+													</div>
+													<div class="pro-rating">
+														<img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+													</div>
+												</div>
+												<div class="action">
+													<div class="add-to-cart">
+														<a href="{% url 'add_to_cart' all_product.id %}">Add to cart</a>
+													</div>
+													<div class="add-to-link">
+														<a class="add-to-wishlist" href="{% url 'add_to_wish_list' all_product.id %}" data-bs-toggle="tooltip"
+															data-placement="top" title="Add to Wish List">
+															<i class="fa fa-heart-o"></i>
+															Add to Wish List
+														</a>
+														<a class="add-to-compare" href="#" data-bs-toggle="tooltip"
+															data-placement="top" title="Add to compare">
+															<i class="fa fa-signal"></i>
+															Add to compare
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+										<!-- single-product end -->
+									</div>
+								</div>
+								<div id="shop-list" class="tab-pane shop-list" role="tabpanel">
+									<div class="row">
+										<!-- single blog start -->
+										{% for all_product in all_products %}
+										<div class="product-single">
+											<div class="row">
+												<div class="col-md-4">
+													<div class="product-img">
+														<span class="new">New</span>
+														<a href="{% url 'single_product' pk=all_product.pk %}">
+															<img class="primary-img" src="{{ all_product.product_image.url }}"
+																alt="" />
+														</a>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="product-details">
+														<div class="product-content">
+															<h2><a href="{% url 'single_product' pk=all_product.pk %}">{{ all_product.name }}</a></h2>
+															<div class="pro-price">
+																<span class="new-price">{{ all_product.value }} ₼</span>
+															</div>
+															<div class="pro-rating">
+																<img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+															</div>
+														</div>
+														<div class="product-reveiw">{{ all_product.description|truncatewords:20 }}<a
+																class="readmore" href="{% url 'single_product' pk=all_product.pk %}">Read more</a>
+														</div>
+														<div class="action">
+															<div class="add-to-cart">
+																<a href="{% url 'add_to_cart' all_product.id %}">Add to cart</a>
+															</div>
+															<div class="add-to-link">
+																<a class="add-to-wishlist" href="{% url 'add_to_wish_list' all_product.id %}"
+																	data-bs-toggle="tooltip" data-placement="top"
+																	title="Add to Wish List">
+																	<i class="fa fa-heart-o"></i>
+																	Add to Wish List
+																</a>
+																<a class="add-to-compare" href="#"
+																	data-bs-toggle="tooltip" data-placement="top"
+																	title="Add to compare">
+																	<i class="fa fa-signal"></i>
+																	Add to compare
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+										<!-- single blog end -->
+									</div>
+								</div>
+							</div>
+							<!-- End Tab Bar -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- shop page area end -->
+	<!-- ours-brand-area start-->
+	<div class="ours-brand-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-heading">
+						<h3>Ours Brand</h3>
+					</div>
+					<div class="brand-crousel indicator-style">
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+						<div class="brand-single">
+							<a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ours-brand-area end-->
+{% endblock content %}	

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home-Page 1 || Boloba
+{% endblock title %}
+
+{% block content %}
+<!-- slider-area start-->
+{% load static %}
+{% load custom_filters %}
+<div class="container my-5">
+    <div class="row">
+        {% if products %}
+        {% for product in products %}
+        <div class="col-md-3">    
+            <div class="product-single">
+                <div class="product-img">
+                    <span class="new">New</span>
+                    <span class="discount">-20%</span>
+                    <a href="{% url 'single_product' pk=product.pk %}">
+                        <img class="primary-img" src="{{ product.product_image.url }}" alt="" />
+                        <img class="secondary-img" src="{{ product.product_image.url }}" alt="" />
+                    </a>
+                </div>
+                <div class="product-content">
+                    <h2><a href="{% url 'single_product' pk=product.pk %}">{{ product.name }}</a></h2>
+                    <div class="pro-price">
+                        <span class="new-price">{{ product.value }} ₼</span>
+                        
+                        {% if product.value > 500 %}
+                            <span class="old-price">{{ product.value }} ₼</span>
+                        {% endif %}
+                            
+                    </div>
+                    <div class="pro-rating">
+                        <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                    </div>
+                </div>
+                <div class="action">
+                    <div class="add-to-cart">
+                        <a href="#">Add to cart</a>
+                    </div>
+                    <div class="add-to-link">
+                        <a class="add-to-wishlist" href="{% url 'add_to_wish_list' product.id %}" data-bs-toggle="tooltip"
+                            data-placement="top" title="Add to Wish List">
+                            <i class="fa fa-heart-o"></i>
+                            Add to Wish List
+                        </a>
+                        <a class="add-to-compare" href="#" data-bs-toggle="tooltip"
+                            data-placement="top" title="Add to compare">
+                            <i class="fa fa-signal"></i>
+                            Add to compare
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        {% endfor %}
+        {% else %}
+            <h1 class="alert alert-info">Məhsul tapılmadı. :(</h1>
+        {% endif %}
+    </div>
+</div>                     
+{% endblock content %}

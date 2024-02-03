@@ -1,0 +1,612 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home-Page 1 || Boloba
+{% endblock title %}
+
+{% block content %}
+<!-- slider-area start-->
+{% load static %}
+{% load custom_filters %}
+<div class="slider-area">
+    <div class="bend niceties preview-2">
+        <div id="ensign-nivoslider" class="slides">
+            <img src="{% static 'assets/img/slider/bg-slider-home1.jpg' %}" alt="" title="#slider-direction-1" />
+            <img src="{% static 'assets/img/slider/bg-slider-home1.jpg' %}" alt="" title="#slider-direction-2" />
+        </div>
+        <!-- direction 1 -->
+        <div id="slider-direction-1" class="slider-direction slider-one">
+            <div class="slider-progress"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="slider-content d-none d-md-block">
+                            <!-- layer-1-heading-->
+                            <div class="layer-heading layer-1-heading">
+                                <h2 class="title1">Save on the Award Winning</h2>
+                                <h1 class="title2">Sony A600</h1>
+                            </div>
+                            <!-- layer-1-detials -->
+                            <div class="layer-1-details">
+                                <p class="title3">Save $50 on a600 or bundle with lens and <br> memory card to save
+                                    an additional $ 150.00</p>
+                            </div>
+                            <!-- layer-1-button -->
+                            <div class="layer-button d-none d-lg-inline-block">
+                                <a href="#" class="slider-btn">shopping now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- layer-1-img -->
+                        <div class="layer-1-img">
+                            <img src="{% static 'assets/img/slider/slider-caption1.png' %}" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- direction 2 -->
+        <div id="slider-direction-2" class="slider-direction slider-two">
+            <div class="slider-progress"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider-content d-none d-md-block">
+                            <!-- layer-2-heading -->
+                            <div class="layer-heading layer-2-heading">
+                                <h2 class="title1">Sale 50% for everyone</h2>
+                                <h1 class="title2">Apple Watch</h1>
+                            </div>
+                            <!-- layer-2- list -->
+                            <div class="layer-2-list">
+                                <ul>
+                                    <li>Save $50 on a600</li>
+                                    <li>Bundle with lens and memory card</li>
+                                    <li>Save an additional $ 150.00</li>
+                                </ul>
+                            </div>
+                            <!-- layer-2-button -->
+                            <div class="layer-button d-none d-lg-inline-block">
+                                <a href="#" class="slider-btn">shopping now</a>
+                            </div>
+                        </div>
+                        <!-- layer-2-img -->
+                        <div class="layer-2-img">
+                            <img src="{% static 'assets/img/slider/slider-caption2.png' %}" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider-area end-->
+<!-- product-tab-area start-->
+<div class="product-tab-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="product-tab">
+                    <ul class="product-nav nav" role="tablist">
+                        <li role="presentation"><a class="active" href="#latest" aria-controls="latest" role="tab"
+                                data-bs-toggle="tab">latest</a></li>
+                        <li role="presentation"><a href="#sale" aria-controls="sale" role="tab"
+                                data-bs-toggle="tab">sale</a></li>
+                        <li role="presentation"><a href="#random" aria-controls="random" role="tab"
+                                data-bs-toggle="tab">random</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!--latest tab start-->
+                        <div id="latest" role="tabpanel" class="tab-pane active">
+                            <div class="gutter-space-30">
+                                <div class="product-crousel indicator-style">
+                                    {% for product in products %}
+                                    <div class="slide-item">
+                                        <div class="product-single">
+                                            <div class="product-img">
+                                                <span class="new">New</span>
+                                                <span class="discount">-20%</span>
+                                                <a href="{% url 'single_product' pk=product.pk %}">
+                                                    <img class="primary-img" src="{{ product.product_image.url }}" alt="" />
+                                                    <img class="secondary-img" src="{{ product.product_image.url }}" alt="" />
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2><a href="{% url 'single_product' pk=product.pk %}">{{ product.name }}</a></h2>
+                                                <div class="pro-price">
+                                                    <span class="new-price">{{ product.value }} ₼</span>
+                                                    
+                                                    {% if product.value > 500 %}
+                                                        <span class="old-price">{{ product.value|subtract:250 }} ₼</span>
+                                                    {% endif %}
+                                                        
+                                                </div>
+                                                <div class="pro-rating">
+                                                    <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                                </div>
+                                            </div>
+                                            <div class="action">
+                                                <div class="add-to-cart">
+                                                    <a href="{% url 'add_to_cart' product.id %}">Add to cart</a>
+                                                </div>
+                                                <div class="add-to-link">
+                                                    <a class="add-to-wishlist" href="{% url 'add_to_wish_list' product.id %}" data-bs-toggle="tooltip"
+                                                        data-placement="top" title="Add to Wish List">
+                                                        <i class="fa fa-heart-o"></i>
+                                                        Add to Wish List
+                                                    </a>
+                                                    <a class="add-to-compare" href="#" data-bs-toggle="tooltip"
+                                                        data-placement="top" title="Add to compare">
+                                                        <i class="fa fa-signal"></i>
+                                                        Add to compare
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <!--latest tab end-->
+                        <!--sale tab start-->
+                        <div id="sale" role="tabpanel" class="tab-pane">
+                            <div class="gutter-space-30">
+                                <div class="product-crousel indicator-style">
+                                    {% for featured_p in featured %}
+                                    <div class="slide-item">
+                                        <div class="product-single">
+                                            <div class="product-img">
+                                                <a href="{% url 'single_product' pk=featured_p.pk %}">
+                                                    <img class="primary-img" src="{{ featured_p.product_image.url }}" alt="" />
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2><a href="{% url 'single_product' pk=featured_p.pk %}">{{ featured_p.name }}</a></h2>
+                                                <div class="pro-price">
+                                                    <span class="new-price">{{ featured_p.value }} ₼</span>
+                                                </div>
+                                                <div class="pro-rating">
+                                                    <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                                </div>
+                                            </div>
+                                            <div class="action">
+                                                <div class="add-to-cart">
+                                                    <a href="{% url 'add_to_cart' featured_p.id %}">Add to cart</a>
+                                                </div>
+                                                <div class="add-to-link">
+                                                    <a class="add-to-wishlist" href="{% url 'add_to_wish_list' featured_p.id %}" data-bs-toggle="tooltip"
+                                                        data-placement="top" title="Add to Wish List">
+                                                        <i class="fa fa-heart-o"></i>
+                                                        Add to Wish List
+                                                    </a>
+                                                    <a class="add-to-compare" href="#" data-bs-toggle="tooltip"
+                                                        data-placement="top" title="Add to compare">
+                                                        <i class="fa fa-signal"></i>
+                                                        Add to compare
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <!--sale tab end-->
+                        <!--random tab start-->
+                        <div id="random" role="tabpanel" class="tab-pane">
+                            <div class="gutter-space-30">
+                                <div class="product-crousel indicator-style">
+                                    {% for product in products %}
+                                    <div class="slide-item">
+                                        <div class="product-single">
+                                            <div class="product-img">
+                                                <span class="new">New</span>
+                                                <span class="discount">-20%</span>
+                                                <a href="{% url 'single_product' pk=product.pk %}">
+                                                    <img class="primary-img" src="{{ product.product_image.url }}" alt="" />
+                                                    <img class="secondary-img" src="{{ product.product_image.url }}" alt="" />
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <h2><a href="{% url 'single_product' pk=product.pk %}">{{ product.name }}</a></h2>
+                                                <div class="pro-price">
+                                                    <span class="new-price">{{ product.value }} ₼</span>
+                                                    
+                                                    {% if product.value > 500 %}
+                                                        <span class="old-price">{{ product.value|subtract:250 }} ₼</span>
+                                                    {% endif %}
+                                                        
+                                                </div>
+                                                <div class="pro-rating">
+                                                    <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                                </div>
+                                            </div>
+                                            <div class="action">
+                                                <div class="add-to-cart">
+                                                    <a href="{% url 'add_to_cart' product.id %}">Add to cart</a>
+                                                </div>
+                                                <div class="add-to-link">
+                                                    <a class="add-to-wishlist" href="{% url 'add_to_wish_list' product.id %}" data-bs-toggle="tooltip"
+                                                        data-placement="top" title="Add to Wish List">
+                                                        <i class="fa fa-heart-o"></i>
+                                                        Add to Wish List
+                                                    </a>
+                                                    <a class="add-to-compare" href="#" data-bs-toggle="tooltip"
+                                                        data-placement="top" title="Add to compare">
+                                                        <i class="fa fa-signal"></i>
+                                                        Add to compare
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <!--random tab end-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="banner">
+                    <a href="#">
+                        <img src="{% static 'assets/img/banner/banner1.jpg" alt="" />
+                    </a>
+                    <div class="banner-sale">
+                        <h3>sale of 50%</h3>
+                    </div>
+                    <div class="banner-text">
+                        <h2>nokia lumina</h2>
+                        <a href="#">Shopping now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product-tab-area end-->
+<!-- features-product-area start-->
+<div class="features-product-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h3>Featured Products</h3>
+                </div>
+                <div class="gutter-space-30">
+                    <div class="features-crousel indicator-style">
+                        {% for featured_p in featured %}
+                        <div class="slide-item">
+                            <div class="product-single">
+                                <div class="product-img">
+                                    <a href="{% url 'single_product' pk=featured_p.pk %}">
+                                        <img class="primary-img" src="{{ featured_p.product_image.url }}" alt="" />
+                                    </a>
+                                </div>
+                                <div class="product-content">
+                                    <h2><a href="{% url 'single_product' pk=featured_p.pk %}">{{ featured_p.name }}</a></h2>
+                                    <div class="pro-price">
+                                        <span class="new-price">{{ featured_p.value }} ₼</span>
+                                    </div>
+                                    <div class="pro-rating">
+                                        <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                    </div>
+                                </div>
+                                <div class="action">
+                                    <div class="add-to-cart">
+                                        <a href="{% url 'add_to_cart' featured_p.id %}">Add to cart</a>
+                                    </div>
+                                    <div class="add-to-link">
+                                        <a class="add-to-wishlist" href="{% url 'add_to_wish_list' featured_p.id %}" data-bs-toggle="tooltip"
+                                            data-placement="top" title="Add to Wish List">
+                                            <i class="fa fa-heart-o"></i>
+                                            Add to Wish List
+                                        </a>
+                                        <a class="add-to-compare" href="#" data-bs-toggle="tooltip"
+                                            data-placement="top" title="Add to compare">
+                                            <i class="fa fa-signal"></i>
+                                            Add to compare
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- features-product-area end-->
+<!-- banner-area start-->
+<div class="banner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="banner2">
+                    <img src="{% static 'assets/img/banner/banner2.jpg" alt="" />
+                    <div class="banner2-text">
+                        <h2>lenovo plus</h2>
+                        <h3>Sale up to 30%</h3>
+                        <a href="#">Shopping now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="banner2 banner2-bottom">
+                    <img src="{% static 'assets/img/banner/banner3.jpg" alt="" />
+                    <div class="banner2-text">
+                        <h2>nikon d70</h2>
+                        <h3>new arrivals</h3>
+                        <a href="#">Shopping now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- banner-area end-->
+<!-- new-product-area start-->
+<div class="new-product-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="section-heading">
+                    <h3>Best seller</h3>
+                </div>
+                <div class="gutter-space-30">
+                    <div class="best-seller-crousel indicator-style">
+                        <div class="slide-item">
+                            <div class="best-seller-single">
+                                {% for best in best_s %}
+                                <div class="product-single">
+                                    <div class="product-img">
+                                        <a href="{% url 'single_product' pk=best.pk %}">
+                                            <img class="primary-img" src="{{ best.product_image.url }}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h2><a href="{% url 'single_product' pk=best.pk %}">{{ best.name|truncatechars:20 }}</a></h2>
+                                        <div class="pro-rating">
+                                            <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                        </div>
+                                        <div class="pro-price">
+                                            <span class="old-price">{{ best.value }}</span>
+                                            <span class="new-price">{{ best.value|subtract:169 }} ₼</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="slide-item">
+                            <div class="best-seller-single">
+                                <div class="product-single">
+                                    <div class="product-img">
+                                        <a href="#">
+                                            <img class="primary-img" src="{% static 'assets/img/product/10.png' %}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h2><a href="#">Aenean qua</a></h2>
+                                        <div class="pro-rating">
+                                            <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                        </div>
+                                        <div class="pro-price">
+                                            <span class="new-price">$159.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-single">
+                                    <div class="product-img">
+                                        <a href="#">
+                                            <img class="primary-img" src="{% static 'assets/img/product/12.png' %}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h2><a href="#">Aenean qua</a></h2>
+                                        <div class="pro-rating">
+                                            <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                        </div>
+                                        <div class="pro-price">
+                                            <span class="old-price">$100.00</span>
+                                            <span class="new-price">$90.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-single">
+                                    <div class="product-img">
+                                        <a href="#">
+                                            <img class="primary-img" src="{% static 'assets/img/product/14.png' %}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h2><a href="#">Aenean qua</a></h2>
+                                        <div class="pro-rating">
+                                            <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                        </div>
+                                        <div class="pro-price">
+                                            <span class="old-price">$1000.00</span>
+                                            <span class="new-price">$99.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-single bestseller-style">
+                                    <div class="product-img">
+                                        <a href="#">
+                                            <img class="primary-img" src="{% static 'assets/img/product/13.png' %}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h2><a href="#">Aenean qua</a></h2>
+                                        <div class="pro-rating">
+                                            <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                        </div>
+                                        <div class="pro-price">
+                                            <span class="new-price">$159.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="section-heading">
+                    <h3>New Products</h3>
+                </div>
+                <div class="gutter-space-30">
+                    <div class="new-product-crousel indicator-style">
+                        {% for product in products %}
+                        <div class="slide-item">
+                            <div class="product-single">
+                                <div class="product-img">
+                                    <span class="new">New</span>
+                                    <span class="discount">-20%</span>
+                                    <a href="{% url 'single_product' pk=product.pk %}">
+                                        <img class="primary-img" src="{{ product.product_image.url }}" alt="" />
+                                        <img class="secondary-img" src="{{ product.product_image.url }}" alt="" />
+                                    </a>
+                                </div>
+                                <div class="product-content">
+                                    <h2><a href="{% url 'single_product' pk=product.pk %}">{{ product.name }}</a></h2>
+                                    <div class="pro-price">
+                                        <span class="new-price">{{ product.value }} ₼</span>
+                                        
+                                        {% if product.value > 500 %}
+                                            <span class="old-price">{{ product.value|subtract:250 }} ₼</span>
+                                        {% endif %}
+                                            
+                                    </div>
+                                    <div class="pro-rating">
+                                        <img src="{% static 'assets/img/rating/rating.png' %}" alt="" />
+                                    </div>
+                                </div>
+                                <div class="action">
+                                    <div class="add-to-cart">
+                                        <a href="{% url 'add_to_cart' product.id %}">Add to cart</a>
+                                    </div>
+                                    <div class="add-to-link">
+                                        <a class="add-to-wishlist" href="{% url 'add_to_wish_list' product.id %}" data-bs-toggle="tooltip"
+                                            data-placement="top" title="Add to Wish List">
+                                            <i class="fa fa-heart-o"></i>
+                                            Add to Wish List
+                                        </a>
+                                        <a class="add-to-compare" href="#" data-bs-toggle="tooltip"
+                                            data-placement="top" title="Add to compare">
+                                            <i class="fa fa-signal"></i>
+                                            Add to compare
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- new-product-area end-->
+<!-- ours-brand-area start-->
+<div class="ours-brand-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h3>Ours Brand</h3>
+                </div>
+                <div class="brand-crousel indicator-style">
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                    <div class="brand-single">
+                        <a href="#"><img src="{% static 'assets/img/brand/1.png' %}" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ours-brand-area end-->
+<!-- recent-post-area start-->
+<div class="recent-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h3>Recent Post</h3>
+                </div>
+                <div class="gutter-space-30">
+                    <div class="recent-post-crousel indicator-style">
+                        {% for blog in blogs %}
+                        <div class="slide-item">
+                            <div class="post-single">
+                                <div class="post-img"> 
+                                    {% if blog.poster.url != False %}
+                                    <a href="{% url 'blog_details' pk=blog.pk %}"><img src="{{ blog.poster.url }}" alt="" />
+                                    {% endif %}   
+                                    </a>
+                                </div>
+                                <div class="post-content">
+                                    <div class="content-heading">
+                                        <h3><a href="{% url 'blog_details' pk=blog.pk %}">{{ blog.title|truncatechars:25 }}</a></h3>
+                                    </div>
+                                    <div class="content-details">
+                                        <p>{{ blog.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <div class="content-comment">
+                                        <span class="entry-date">
+                                            {{ blog.created }}
+                                        </span>
+                                        <span class="entry-comment">
+                                            <i class="fa fa-user"></i>
+                                            {{ blog.author }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- recent-post-area end-->
+{% endblock content %}
